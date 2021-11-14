@@ -1,4 +1,3 @@
-import pandas as pd
 import numpy as np
 import random
 from collections import deque
@@ -35,7 +34,7 @@ class TradingEnvironment:
         self.crypto_sold = 0
         self.crypto_bought = 0
         if env_steps_size > 0:  # used for training dataset
-            self.start_step = random.randint(self.lookback_window_size, self.df_total_steps - env_steps_size)
+            self.start_step = random.randint(self.lookback_window_size, self.df_total_steps - env_steps_size) if (self.lookback_window_size < env_steps_size) else 0
             self.end_step = self.start_step + env_steps_size
         else:  # used for testing dataset
             self.start_step = self.lookback_window_size
@@ -61,7 +60,7 @@ class TradingEnvironment:
     def step(self, action):
         self.crypto_bought = 0
         self.crypto_sold = 0
-        self.current_step += 1
+
 
         # Set the current price to a random price between open and close
         current_price = random.uniform(
@@ -99,6 +98,7 @@ class TradingEnvironment:
 
         obs = self._next_observation()
 
+        self.current_step += 1
         return obs, reward, done
 
     # Get the data points for the given current_step

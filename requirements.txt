@@ -1,0 +1,6 @@
+numpy~=1.21.1
+pandas~=1.3.0
+PyQt5~=5.15.4
+matplotlib~=3.4.2
+tensorflow~=2.5.0
+deepevolution~=0.0.4
